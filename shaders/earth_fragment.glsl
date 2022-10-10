@@ -12,8 +12,8 @@ uniform sampler2D normalMap;
 
 
 vec3 computeLocalNormal() {
-    vec2 normalData = (texture(normalMap, v_UV).rg - 0.5) * 2.;
-    vec3 materialNormal = normalize(vec3(normalData, 0.1));
+   vec3 normalData = (texture(normalMap, v_UV).rgb - 0.5) * 2.;
+   vec3 materialNormal = normalize(vec3(normalData.xy, 0.2));
 
     vec3 N = v_normal;
     vec3 T = normalize(vec3(N.z, 0., -N.x));
@@ -35,7 +35,7 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord ) {
     vec3 refl = reflect(light, localNormal);
 
     float mask = texture(mask, v_UV).r;
-    float specular = pow(max(dot(refl, normalize(cameraPosition-v_position)), 0.), 20.) * 0.5 * mask;
+    float specular = pow(max(dot(refl, normalize(cameraPosition-v_position)), 0.), 3.) * 0.15 * mask;
 
     fragColor.xyz = texture(ground, v_UV).rgb * (ambient + diffuse) + specular;
     fragColor.a = 1.0;

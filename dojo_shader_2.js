@@ -48,7 +48,7 @@ function animate(millis) {
     requestAnimationFrame(animate);
 
     mesh.rotation.x = 0.5;
-    mesh.rotation.y = -1.5 - 0.05 * time            *  0. + 1.5;
+    mesh.rotation.y = -1.5 - 0.05 * time   ;//         *  0. + 5.5;
 
     renderer.render(scene, camera);
 }
