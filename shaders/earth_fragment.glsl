@@ -35,7 +35,7 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord ) {
     vec3 refl = reflect(light, localNormal);
 
     float mask = texture(mask, v_UV).r;
-    float specular = pow(max(dot(refl, normalize(cameraPosition-v_position)), 0.), 20.) * 0.5 * mask;
+    float specular = pow(max(dot(refl, normalize(cameraPosition-v_position)), 0.), 5.) * 0.15 * mask;
 
     fragColor.xyz = texture(ground, v_UV).rgb * (ambient + diffuse) + specular;
     fragColor.a = 1.0;
