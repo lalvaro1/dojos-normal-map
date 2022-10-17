@@ -1,4 +1,7 @@
-let camera, scene, renderer;
+import * as THREE from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+
+let camera, scene, renderer, controls;
 let mesh;
 
 const earthUniforms = {
@@ -10,9 +13,18 @@ const earthUniforms = {
 
 function init() {
 
+    renderer = new THREE.WebGLRenderer();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
     scene = new THREE.Scene();
     camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 1, 1000);
     camera.position.z = 40;
+
+    controls = new OrbitControls( camera, renderer.domElement );
+    controls.enableDamping = true;
+    camera.position.set( 0, 20, 40);
+    controls.update();
 
     const geometry = new THREE.SphereGeometry( 15, 100, 100);
 
@@ -25,11 +37,7 @@ function init() {
 
     mesh = new THREE.Mesh(geometry, cubeMaterial);
     scene.add(mesh);
-
-    renderer = new THREE.WebGLRenderer();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    document.body.appendChild(renderer.domElement);
-
+  
     window.addEventListener('resize', onWindowResize, false);
 }
 
@@ -47,8 +55,10 @@ function animate(millis) {
 
     requestAnimationFrame(animate);
 
+    controls.update();
+
     mesh.rotation.x = 0.5;
-    mesh.rotation.y = -1.5 - 0.05 * time   ;//         *  0. + 5.5;
+    mesh.rotation.y = -1.5 - 0.05 * time;
 
     renderer.render(scene, camera);
 }
