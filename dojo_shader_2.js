@@ -8,7 +8,6 @@ const earthUniforms = {
     time: { value: 0 },
     ground: { type: "t", value: new THREE.TextureLoader().load( "./textures/earth.jpg" ) },
     mask: { type: "t", value: new THREE.TextureLoader().load( "./textures/mask.png" ) },   
-    normalMap: { type: "t", value: new THREE.TextureLoader().load( "./textures/earth_normal_map.png") }, 
 };
 
 function init() {
